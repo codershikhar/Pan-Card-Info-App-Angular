@@ -1,0 +1,72 @@
+<mat-toolbar color="primary" style="display: flex; justify-content: space-between;">
+  <span>Pan Card App</span>
+  <button mat-button matSuffix mat-icon-button aria-label="Add" [routerLink]='["add"]'>
+    <mat-icon>add</mat-icon>
+  </button>
+</mat-toolbar>
+
+<!-- Data Table -->
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+  <!-- Id Column -->
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef> Id </th>
+    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+  </ng-container>
+
+  <!-- Card Image Column -->
+  <ng-container matColumnDef="card image">
+    <th mat-header-cell *matHeaderCellDef> Card Image </th>
+    <td mat-cell *matCellDef="let element">
+      <img src="{{dbUrl + element.pan_file.file}}">
+    </td>
+  </ng-container>
+
+  <!-- Full Name Column -->
+  <ng-container matColumnDef="full name">
+    <th mat-header-cell *matHeaderCellDef> Full Name </th>
+    <td mat-cell *matCellDef="let element"> {{element.full_name}} </td>
+  </ng-container>
+
+  <!-- Fathers Name Column -->
+  <ng-container matColumnDef="fathers name">
+    <th mat-header-cell *matHeaderCellDef> Father's Name </th>
+    <td mat-cell *matCellDef="let element"> {{element.fathers_name}} </td>
+  </ng-container>
+
+  <!-- DOB Column -->
+  <ng-container matColumnDef="dob">
+    <th mat-header-cell *matHeaderCellDef> DOB </th>
+    <td mat-cell *matCellDef="let element"> {{element.date_of_birth}} </td>
+  </ng-container>
+
+  <!-- PAN Number Column -->
+  <ng-container matColumnDef="pan number">
+    <th mat-header-cell *matHeaderCellDef> Pan Number </th>
+    <td mat-cell *matCellDef="let element"> {{element.pan_number}} </td>
+  </ng-container>
+
+  <!-- Signature Column -->
+  <ng-container matColumnDef="signature">
+    <th mat-header-cell *matHeaderCellDef> Signature </th>
+    <td mat-cell *matCellDef="let element">
+      <img src="{{dbUrl + element.scanned_signature}}">
+    </td>
+  </ng-container>
+
+  <!-- Photo Column -->
+  <ng-container matColumnDef="photo">
+    <th mat-header-cell *matHeaderCellDef> Photo </th>
+    <td mat-cell *matCellDef="let element">
+      <img src="{{dbUrl + element.photo}}">
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<!-- Paginator -->
+<mat-paginator [length]="totalLists" [pageSize]="currentPageSize" [pageIndex]="currentPageNumber"
+  [pageSizeOptions]="[5, 10, 25, 100]" (page)="paginationPanInfoList($event)">
+</mat-paginator>

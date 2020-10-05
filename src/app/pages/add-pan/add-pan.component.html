@@ -1,0 +1,35 @@
+<div *ngIf="loading" class="container">
+  <mat-spinner class="child"></mat-spinner>
+</div>
+
+<mat-toolbar color="primary" style="display: flex; justify-content: space-between;">
+  <span>Pan Card App</span>
+  <button mat-button matSuffix mat-icon-button aria-label="Add" [routerLink]='["add"]'>
+    Home
+  </button>
+</mat-toolbar>
+
+<div style="display: flex; margin: 30px 10px 0px 10px;">
+  <div style="width: 45%;">
+    <img *ngIf="!panInfo?.pan_file?.file"
+      src="https://seeba.se/wp-content/themes/consultix/images/no-image-found-360x260.png" style="width: 100%;">
+    <img *ngIf="panInfo?.pan_file?.file" src="{{dbUrl + panInfo.pan_file.file}}" style="width: 100%;">
+    <input #fileInput hidden="true" type="file" onclick="this.value=null" (change)="fileInputChange($event)" />
+    <div style="justify-content: space-around; display: flex;">
+      <button *ngIf="!panInfo" mat-flat-button color="primary" (click)="fileInput.click()">Choose a Image</button>
+      <button *ngIf="panInfo" mat-flat-button color="primary" (click)="reset()">Reset</button>
+    </div>
+  </div>
+  <div *ngIf="panInfo" style="width: 45%;">
+    <mat-list role="list">
+      <mat-list-item><span>Full Name: </span>{{ panInfo.full_name }}</mat-list-item>
+      <mat-list-item><span>Fathers Name: </span>{{ panInfo.fathers_name }}</mat-list-item>
+      <mat-list-item><span>Date Of Birth: </span>{{ panInfo.date_of_birth }}</mat-list-item>
+      <mat-list-item><span>Pan Number: </span>{{ panInfo.pan_number }}</mat-list-item>
+      <mat-list-item>
+        <span>Photo: </span><img src="{{dbUrl + panInfo.photo}}" style="width: 20%;">
+        <span>Signature: </span><img src="{{dbUrl + panInfo.scanned_signature}}" style="width: 20%;">
+      </mat-list-item>
+    </mat-list>
+  </div>
+</div>
